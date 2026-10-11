@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Manual IdeasYouTubePro — Imprimible</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Karla:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#1a1414; --mut:#5c5049; --red:#c81e1e; --gold:#8a6a10; --line:#ddd2cc; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Karla',sans-serif;color:var(--ink);background:#e9e2dd;font-size:13.5px;line-height:1.6}
+  .page{max-width:210mm;margin:18px auto;background:#fff;padding:16mm 15mm;box-shadow:0 8px 30px rgba(0,0,0,.15)}
+  h1,h2,h3{font-weight:800;line-height:1.2}
+  h1{font-family:'Anton',sans-serif;font-weight:400;font-size:34px;letter-spacing:1px}
+  h2{font-family:'Anton',sans-serif;font-weight:400;font-size:19px;color:var(--red);margin:26px 0 10px;padding-bottom:5px;border-bottom:2px solid var(--red);page-break-after:avoid}
+  h3{font-size:14px;margin:14px 0 6px;page-break-after:avoid}
+  p{margin:7px 0}
+  .mono{font-family:'Space Mono',monospace}
+  .cover{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:4px solid var(--ink);padding-bottom:14px;margin-bottom:8px}
+  .cover .logo{width:52px;height:52px;background:var(--red);border-radius:12px;display:grid;place-items:center;flex:none}
+  .cover .logo svg{width:24px;height:24px;fill:#fff}
+  .cover small{font-family:'Space Mono',monospace;font-size:10px;color:var(--mut);letter-spacing:2px;display:block;margin-top:4px}
+  .meta{font-family:'Space Mono',monospace;font-size:10px;color:var(--mut);text-align:right;letter-spacing:1px;line-height:1.9}
+  table{width:100%;border-collapse:collapse;margin:10px 0 16px;font-size:12.5px;page-break-inside:auto}
+  th{background:#f6efe9;text-align:left;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);padding:7px 9px;border:1px solid var(--line)}
+  td{padding:6px 9px;border:1px solid var(--line);vertical-align:top}
+  tr{page-break-inside:avoid}
+  code{font-family:'Space Mono',monospace;font-size:11.5px;background:#f6efe9;border:1px solid var(--line);padding:1px 6px;border-radius:4px}
+  .flow{background:#faf6f1;border:1px solid var(--line);border-left:4px solid var(--red);border-radius:8px;padding:12px 16px;margin:12px 0;font-size:12.5px}
+  .flow b{color:var(--red)}
+  .tag{display:inline-block;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;border-radius:4px;padding:2px 7px;margin-right:4px}
+  .t-red{background:#fde3e3;color:#a11414}.t-gold{background:#fdf3d7;color:#7a5c0a}.t-green{background:#ddf3e8;color:#0d6b43}.t-gray{background:#eee;color:#555}
+  .note{background:#fff8e6;border:1px solid #e8d9a8;border-radius:8px;padding:10px 14px;font-size:12px;margin:10px 0}
+  .foot{margin-top:30px;border-top:1px solid var(--line);padding-top:10px;font-family:'Space Mono',monospace;font-size:9.5px;color:var(--mut);letter-spacing:1px;display:flex;justify-content:space-between}
+  .printbar{position:sticky;top:0;z-index:10;background:#1a1414;color:#fff;text-align:center;padding:12px}
+  .printbar button{background:#ff3d3d;color:#fff;border:none;font-family:'Karla';font-weight:800;font-size:15px;padding:11px 26px;border-radius:9px;cursor:pointer;margin:0 8px}
+  .printbar button:hover{background:#ff6b5e}
+  .printbar span{font-size:12px;opacity:.7;margin-left:10px}
+  .cols2{display:grid;grid-template-columns:1fr 1fr;gap:0 22px}
+  @media print{
+    body{background:#fff;font-size:12px}
+    .page{margin:0;max-width:none;box-shadow:none;padding:8mm 10mm}
+    .printbar{display:none}
+    h2{margin-top:18px}
+    a{color:inherit;text-decoration:none}
+    @page{size:A4;margin:12mm}
+  }
+</style>
+</head>
+<body>
+
+<div class="printbar">
+  <button onclick="window.print()">🖨 IMPRIMIR / GUARDAR COMO PDF</button>
+  <span>Consejo: en el diálogo de impresión elige «Guardar como PDF»</span>
+</div>
+
+<div class="page">
+
+  <div class="cover">
+    <div style="display:flex;gap:16px;align-items:center">
+      <div class="logo"><svg viewBox="0 0 16 16"><path d="M3 1.5l11 6.5-11 6.5z"/></svg></div>
+      <div>
+        <h1>IDEASYOUTUBEPRO</h1>
+        <small>MANUAL DE FUNCIONAMIENTO · BOTONES E INTERACCIONES</small>
+      </div>
+    </div>
+    <div class="meta">v1.6<br>CONSOLA DE INVESTIGACIÓN<br>HTML + JS PURO · 100% GRATUITO</div>
+  </div>
+
+  <h2>1 · Qué hace la app</h2>
+  <p>Convierte una <b>idea escrita</b> en una lista completa de videos de YouTube: los busca, los agrupa por autor o por ranking, mide su <b>grado de aceptación (0–100)</b>, los reproduce con controles completos, muestra el <b>perfil y contacto del creador</b>, permite <b>descargarlos verificando su licencia</b> y exporta todo a CSV o guion.</p>
+  <div class="flow"><b>Servicios gratuitos que usa:</b> YouTube Data API v3 (cuota gratis de Google) · Pollinations.ai (IA sin registro) · YouTube IFrame Player API · yt-dlp (open source, solo para descargas).</div>
+
+  <h2>2 · Puesta en marcha (una sola vez)</h2>
+  <table>
+    <tr><th style="width:34px">#</th><th>Paso</th></tr>
+    <tr><td>1</td><td>Guardar <code>IdeasYoutubePro.html</code> y <code>Abrir_IdeasYoutubePro.bat</code> en la misma carpeta.</td></tr>
+    <tr><td>2</td><td>Doble clic en el <code>.bat</code> → la app se abre en <code>http://localhost:8080</code> (imprescindible en Firefox).</td></tr>
+    <tr><td>3</td><td>Pulsar <b>⚙ ¿Cómo conecto YouTube?</b> y seguir el asistente: crear proyecto en <span class="mono">console.cloud.google.com</span> → habilitar <b>YouTube Data API v3</b> → crear <b>Clave de API</b> → pegarla y guardar.</td></tr>
+    <tr><td>4</td><td>El indicador de la cabecera pasa a <span class="tag t-green">● API CONECTADA</span>. La clave queda memorizada en el navegador.</td></tr>
+  </table>
+
+  <h2>3 · Buscar videos</h2>
+  <table>
+    <tr><th>Botón / control</th><th>Función</th></tr>
+    <tr><td><b>▶ Buscar videos</b> <span class="mono">(ENTER)</span></td><td>Lanza la búsqueda de la idea escrita.</td></tr>
+    <tr><td><b>✦ Ampliar con IA</b></td><td>La IA convierte tu idea en una búsqueda SEO optimizada y busca sola.</td></tr>
+    <tr><td><b>Resultados</b> (10/25/50)</td><td>Videos por tanda. Con <b>↓ Cargar más</b> se acumulan.</td></tr>
+    <tr><td><b>Orden</b></td><td>Relevancia · Más vistos · Más recientes.</td></tr>
+    <tr><td>Chips <b>RECIENTES</b> y cinta de ideas</td><td>Clic = repetir la búsqueda al instante.</td></tr>
+  </table>
+
+  <h2>4 · Lista de resultados</h2>
+  <div class="cols2">
+    <div>
+      <h3>Vistas de organización</h3>
+      <p><span class="tag t-red">POR AUTORES</span> agrupa por canal, ordenados por vistas sumadas.<br>
+      <span class="tag t-red">RANKING</span> ordena todos los videos por puntuación.</p>
+      <h3>Cada tarjeta muestra</h3>
+      <p>Nº de puesto · miniatura con duración · título · canal · antigüedad · vistas · likes · <b>barra de aceptación</b>.</p>
+    </div>
+    <div>
+      <h3>Etiquetas de aceptación</h3>
+      <p><span class="tag t-gold">🔥 VIRAL 85–100</span><span class="tag t-green">ESTELAR 65–84</span><br><span class="tag t-gray">POPULAR 45–64</span><span class="tag t-gray">ACEPTADO 25–44</span><span class="tag t-gray">NICHO 0–24</span></p>
+      <h3>Interacción</h3>
+      <p><b>Clic en cualquier tarjeta</b> → se carga y reproduce en el monitor. La tarjeta activa queda resaltada.</p>
+    </div>
+  </div>
+
+  <h2>5 · El monitor (reproductor)</h2>
+  <table>
+    <tr><th>Botón</th><th>Función</th><th>Botón</th><th>Función</th></tr>
+    <tr><td><b>▶ / ❚❚</b></td><td>Play / Pausa</td><td><b>👤</b></td><td>Perfil del autor</td></tr>
+    <tr><td><b>■</b></td><td>Stop</td><td><b>🔄</b></td><td>Recargar video</td></tr>
+    <tr><td><b>−10s / +10s</b></td><td>Retroceso / Avance</td><td><b>🔁</b></td><td>Cambiar dominio del reproductor (se memoriza)</td></tr>
+    <tr><td><b>Barra progreso</b></td><td>Clic para saltar a ese punto</td><td><b>⛶ TEATRO</b></td><td>Ventana amplia flotante</td></tr>
+    <tr><td><b>🔊 + deslizador</b></td><td>Volumen y silencio</td><td><b>⛶ FULL</b></td><td>Pantalla completa · cambia a <b>SALIR</b></td></tr>
+  </table>
+  <div class="note">⚠ Si la barra aparece atenuada («CARGANDO REPRODUCTOR…»), se activa sola en unos segundos. Si un video no carga: 🔄 → 🔁 → enlace ↗ «Ábrelo en YouTube».</div>
+
+  <h3>Atajos de teclado</h3>
+  <table>
+    <tr><th>Tecla</th><td><code>ESPACIO</code></td><td><code>←</code> / <code>→</code></td><td><code>F</code></td><td><code>M</code></td><td><code>ESC</code></td></tr>
+    <tr><th>Acción</th><td>Play/Pausa</td><td>±10 segundos</td><td>Pantalla completa</td><td>Silencio</td><td>Salir de pantalla completa, teatro y ventanas</td></tr>
+  </table>
+
+  <h2>6 · Perfil y contacto del autor</h2>
+  <p>Botones: <b>👤</b> (monitor) · <b>👤 AUTOR</b> (ficha del video y teatro). Muestra banner, avatar, nombre, país, antigüedad, <b>suscriptores · vistas totales · nº de videos</b>, descripción completa y <b>contactos detectados en el perfil público</b>:</p>
+  <p><span class="tag t-gold">✉️ Correos</span><span class="tag t-green">🟢 WhatsApp</span><span class="tag t-gray">📸 Instagram</span><span class="tag t-gray">🎵 TikTok</span><span class="tag t-gray">🐦 X</span><span class="tag t-gray">📘 Facebook</span><span class="tag t-gray">🎮 Twitch</span><span class="tag t-gray">✈️ Telegram</span><span class="tag t-gold">🌐 Web</span></p>
+  <div class="note">🔒 La API de YouTube no expone datos privados. Si el creador no publicó contactos, la app lo indica. El correo comercial oficial solo aparece en la pestaña «Acerca de» del canal (botón ℹ incluido).</div>
+
+  <h2>7 · Descargar videos y licencias</h2>
+  <p>Botón <b>⬇ DESCARGAR</b> con un video en reproducción. Primero verifica la licencia vía API:</p>
+  <table>
+    <tr><th>Semáforo</th><th>Significado</th></tr>
+    <tr><td><span class="tag t-green">✅ CC-BY</span></td><td>El autor permite descargar y reutilizar citando la fuente.</td></tr>
+    <tr><td><span class="tag t-gold">🔐 Estándar</span></td><td>Derechos reservados. Descarga solo para uso personal; para reutilizar, pedir permiso (👤 AUTOR).</td></tr>
+    <tr><td><span class="tag t-gray">ℹ No disponible</span></td><td>No se pudo verificar: asumir derechos reservados.</td></tr>
+  </table>
+  <p>Después se elige formato (🎬 MP4 1080/720/360/mejor · 🎧 MP3) y se obtiene: <b>💾 Script .bat</b> (doble clic → instala yt-dlp/ffmpeg si faltan y descarga en <code>Descargas\IdeasYoutubePro</code>) o <b>⧉ Comando copiado</b> para CMD. Si el autor bloqueó el contenido (edad, miembros, región), el script lo reporta como <b>restricción de derechos</b>.</p>
+
+  <h2>8 · Exportación e IA</h2>
+  <table>
+    <tr><th>Botón</th><th>Resultado</th></tr>
+    <tr><td><b>⬇ CSV</b></td><td>Tabla completa para Excel: título, canal, URL, vistas, likes, duración, aceptación, <b>licencia</b>, fecha.</td></tr>
+    <tr><td><b>⬇ URLs GUION</b></td><td>.txt numerado con todos los datos y URLs, listo para trabajar el guion.</td></tr>
+    <tr><td><b>⧉ COPIAR URLS</b></td><td>Todas las URLs al portapapeles.</td></tr>
+    <tr><td><b>✦ Ampliar con IA</b></td><td>Idea → consulta de búsqueda optimizada.</td></tr>
+    <tr><td><b>✦ Análisis IA del tema</b></td><td>Qué contenido domina el tema + 4 ideas de video nuevas.</td></tr>
+  </table>
+
+  <h2>9 · Solución rápida de problemas</h2>
+  <table>
+    <tr><th>Problema</th><th>Solución</th></tr>
+    <tr><td>No se reproduce (Firefox)</td><td>Abrir con el <code>.bat</code> (localhost), no con doble clic. O 🛡 → desactivar protección en este sitio.</td></tr>
+    <tr><td>Cuota agotada</td><td>Se reinicia cada 24 h (10.000 unidades gratis).</td></tr>
+    <tr><td>Clave no válida</td><td>Revisarla en ⚙ — debe empezar por <code>AIza…</code>.</td></tr>
+    <tr><td>Sin resultados</td><td>Reformular la idea o usar ✦ Ampliar con IA.</td></tr>
+    <tr><td>Falla una descarga</td><td>Leer el mensaje del .bat: suele ser restricción de derechos o falta ffmpeg.</td></tr>
+  </table>
+
+  <h2>10 · Flujo profesional recomendado</h2>
+  <div class="flow">
+    1. Abrir con <b>Abrir_IdeasYoutubePro.bat</b> → 2. Escribir idea → <b>✦ Ampliar con IA</b> → <b>▶ Buscar</b> → 3. Explorar <b>POR AUTORES / RANKING</b> y <b>↓ Cargar más</b> → 4. <b>✦ Análisis IA</b> → 5. Clic en un video y revisarlo en <b>⛶ FULL</b> → 6. <b>👤 AUTOR</b> para el contacto → 7. <b>⬇ DESCARGAR</b> (revisar licencia) → 8. <b>⬇ CSV / ⬇ URLs GUION</b> para Excel o el guion.
+  </div>
+
+  <div class="foot">
+    <span>IDEASYOUTUBEPRO · v1.6 · MANUAL IMPRIMIBLE</span>
+    <span>DATOS: YOUTUBE DATA API V3 · IA: POLLINATIONS.AI · DESCARGAS: YT-DLP</span>
+  </div>
+
+</div>
+</body>
+</html>
