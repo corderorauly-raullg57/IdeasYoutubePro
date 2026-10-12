@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IdeasYouTubePro — De una idea a todos los videos</title>
+<title>IdeasYouTubePro — Radar de tendencias y videos</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23ff3d3d'/><path d='M12 9l11 7-11 7z' fill='%230d0a0a'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,6 +90,7 @@ h1 .arrow{color:var(--red)}
 .filters label{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--dim);margin-right:2px}
 select{background:var(--ink);color:var(--txt);border:1px solid var(--line2);border-radius:8px;padding:9px 12px;font-family:var(--mono);font-size:12px;cursor:pointer;outline:none;transition:.2s}
 select:hover{border-color:var(--gold)}
+select:disabled{opacity:.4;cursor:not-allowed}
 .recent{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .recent .rt{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--dim)}
 .rchip{font-size:12px;font-weight:700;color:var(--mut);background:var(--panel2);border:1px solid var(--line);padding:5px 12px;border-radius:99px;cursor:pointer;transition:.2s}
@@ -126,6 +127,8 @@ select:hover{border-color:var(--gold)}
 .exports{display:flex;gap:6px}
 .xbtn{font-family:var(--mono);font-size:10.5px;letter-spacing:.5px;background:var(--panel);border:1px solid var(--line2);color:var(--mut);border-radius:7px;padding:8px 12px;cursor:pointer;transition:.2s;white-space:nowrap}
 .xbtn:hover{color:var(--gold);border-color:var(--gold);transform:translateY(-2px)}
+#trendChip{display:none;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--gold);border:1px solid rgba(255,200,74,.4);background:rgba(255,200,74,.06);border-radius:9px;padding:10px 14px;margin-bottom:16px;line-height:1.6}
+#dateChip{display:none;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--blue);border:1px solid rgba(109,179,255,.4);background:rgba(109,179,255,.06);border-radius:9px;padding:10px 14px;margin-bottom:10px}
 
 .vlist{display:flex;flex-direction:column;gap:12px}
 .vrow{display:grid;grid-template-columns:52px 172px 1fr auto;gap:16px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;transition:.22s;animation:rise .5s both;position:relative}
@@ -161,6 +164,7 @@ select:hover{border-color:var(--gold)}
 .l-viral{background:rgba(255,200,74,.16);color:var(--gold)} .l-estelar{background:rgba(93,211,158,.14);color:var(--green)}
 .l-popular{background:rgba(109,179,255,.14);color:var(--blue)} .l-aceptado{background:rgba(200,180,255,.12);color:#c9b8ff}
 .l-nicho{background:rgba(255,255,255,.06);color:var(--mut)}
+.l-rise{background:rgba(93,211,158,.18);color:var(--green);border:1px solid rgba(93,211,158,.4)}
 
 .group{margin-bottom:26px;animation:rise .5s both}
 .gh{display:flex;align-items:center;gap:13px;padding:10px 4px 12px;border-bottom:2px solid var(--line2);margin-bottom:12px}
@@ -195,8 +199,8 @@ select:hover{border-color:var(--gold)}
 .pstats{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
 .pchip{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line2);border-radius:6px;padding:5px 10px;color:var(--mut)}
 .pchip b{color:var(--gold)}
-.pact{display:flex;gap:8px;margin-top:14px}
-.pact .btn{flex:1;justify-content:center;padding:12px 8px;font-size:13px}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.pgrid .btn{justify-content:center;padding:12px 8px;font-size:13px}
 .phelp{margin-top:13px;font-size:11.5px;color:var(--dim);line-height:1.7;border-top:1px dashed var(--line2);padding-top:11px}
 .phelp kbd{font-family:var(--mono);font-size:10px;background:var(--panel2);border:1px solid var(--line2);border-radius:4px;padding:1px 6px;color:var(--mut)}
 .ylink{display:inline-block;margin-top:13px;font-family:var(--mono);font-size:11px;color:var(--mut);text-decoration:none;border-bottom:1px dashed var(--line2);padding-bottom:2px;transition:.2s}
@@ -274,6 +278,21 @@ a.citem:hover{border-color:var(--gold);transform:translateX(5px);color:var(--gol
 .pdiscl{margin-top:16px;font-size:11.5px;color:var(--dim);line-height:1.7;border-top:1px dashed var(--line2);padding-top:12px}
 .pdiscl b{color:var(--mut)}
 
+/* ===== FICHA DEL VIDEO ===== */
+.sheetcard{max-width:660px}
+.shead{display:flex;gap:14px;align-items:center;margin:16px 0}
+.shead img{width:110px;border-radius:8px;flex:none}
+.shead h3{font-size:15px;font-weight:800;line-height:1.4}
+.shead .sc{font-size:12.5px;color:var(--mut);font-weight:700;margin-top:6px}
+.sstats{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.ssect{font-family:var(--mono);font-size:10.5px;letter-spacing:3px;color:var(--gold);margin:18px 0 8px;display:flex;align-items:center;gap:10px}
+.ssect .xbtn{margin-left:auto}
+.sdesc{max-height:180px;overflow:auto;background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.7;color:var(--mut);white-space:pre-wrap;word-break:break-word}
+.schips{display:flex;gap:7px;flex-wrap:wrap}
+.schip{font-family:var(--mono);font-size:11px;color:var(--txt);background:var(--panel2);border:1px solid var(--line2);border-radius:99px;padding:4px 12px}
+.srow{display:flex;align-items:center;gap:10px;background:var(--ink);border:1px solid var(--line2);border-radius:9px;padding:9px 13px;margin-bottom:7px;font-family:var(--mono);font-size:11.5px;color:var(--mut);word-break:break-all}
+.srow .xbtn{margin-left:auto;flex:none}
+
 /* ===== DESCARGA ===== */
 .dlvid{display:flex;gap:14px;align-items:center;background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:12px;margin:16px 0}
 .dlvid img{width:124px;border-radius:8px;flex:none}
@@ -315,7 +334,7 @@ a.citem:hover{border-color:var(--gold);transform:translateX(5px);color:var(--gol
   .cbar{order:5;min-width:100%}
   .profhead{flex-direction:column;align-items:flex-start;margin-top:-30px}
   .profstats{grid-template-columns:1fr}
-  .pact{flex-direction:column}
+  .shead{flex-direction:column;align-items:flex-start}
 }
 </style>
 </head>
@@ -326,7 +345,7 @@ a.citem:hover{border-color:var(--gold);transform:translateX(5px);color:var(--gol
   <div class="hbar">
     <a class="brand" href="#">
       <span class="tri"><svg viewBox="0 0 16 16"><path d="M3 1.5l11 6.5-11 6.5z"/></svg></span>
-      <span><b>IDEAS<em>YOUTUBE</em>PRO</b><small>CONSOLA DE INVESTIGACIÓN · v1.6</small></span>
+      <span><b>IDEAS<em>YOUTUBE</em>PRO</b><small>RADAR DE TENDENCIAS · v1.8</small></span>
     </a>
     <div class="hspace"></div>
     <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
@@ -339,8 +358,8 @@ a.citem:hover{border-color:var(--gold);transform:translateX(5px);color:var(--gol
 
 <main class="wrap">
   <section class="deck">
-    <div class="eyebrow">BÚSQUEDA · IA GRATUITA · REPRODUCTOR · PERFILES · DESCARGA CON LICENCIA · EXPORTACIÓN</div>
-    <h1><span class="box">TU IDEA</span> <span class="arrow">→</span> TODOS LOS VIDEOS,<br>ORDENADOS Y LISTOS PARA VER</h1>
+    <div class="eyebrow">BÚSQUEDA · FILTRO DE FECHA · MODO TENDENCIAS · IA GRATUITA · EXPORTACIÓN</div>
+    <h1><span class="box">TU IDEA</span> <span class="arrow">→</span> TODOS LOS VIDEOS,<br>SUS TENDENCIAS Y SUS AUTORES</h1>
 
     <div class="console">
       <div class="clabel"><b>01 /</b> DESCRIBE TU IDEA O TEMÁTICA</div>
@@ -350,6 +369,20 @@ a.citem:hover{border-color:var(--gold);transform:translateX(5px);color:var(--gol
         <button class="btn btn-primary" id="btnSearch">▶ Buscar videos</button>
       </div>
       <div class="filters">
+        <label>MODO</label>
+        <div class="vtoggle">
+          <button id="mNormal" class="act">🔍 CLÁSICO</button>
+          <button id="mTrend">🔥 TENDENCIAS</button>
+        </div>
+        <label>FECHA</label>
+        <select id="fDate" title="Filtra por fecha de publicación">
+          <option value="any" selected>CUALQUIER FECHA</option>
+          <option value="24h">ÚLTIMAS 24 HORAS</option>
+          <option value="7d">ÚLTIMOS 7 DÍAS</option>
+          <option value="30d">ÚLTIMO MES (30 DÍAS)</option>
+          <option value="90d">ÚLTIMOS 90 DÍAS</option>
+          <option value="1y">ÚLTIMO AÑO</option>
+        </select>
         <label>RESULTADOS</label>
         <select id="fMax"><option>10</option><option selected>25</option><option>50</option></select>
         <label>ORDEN</label>
@@ -396,11 +429,15 @@ a.citem:hover{border-color:var(--gold);transform:translateX(5px);color:var(--gol
         </div>
       </div>
 
+      <div id="dateChip">📅 FILTRO DE FECHA ACTIVO · <span id="dcTxt"></span></div>
+      <div id="trendChip">🔥 MODO TENDENCIAS · <span id="tcWin"></span> · ordenado por vistas · velocidad = vistas por día desde su publicación · los videos marcados <b>🚀 EN ASCENSO</b> crecen más rápido que el 80% de la muestra</div>
+
       <div id="listWrap">
         <div class="empty">
           <div class="big">▶</div>
           <p><strong>Escribe una idea arriba y pulsa BUSCAR.</strong><br>
-          La app rastreará YouTube, agrupará los videos por autor,<br>medirá su grado de aceptación y podrás verlos aquí mismo.</p>
+          Usa <b>🔥 TENDENCIAS</b> para detectar lo que está explotando,<br>
+          o el filtro <b>FECHA</b> (p. ej. últimos 7 días + más recientes) para ver lo último publicado.</p>
         </div>
       </div>
       <button class="btn btn-primary loadmore" id="btnMore" style="display:none">↓ Cargar más videos</button>
@@ -410,7 +447,6 @@ a.citem:hover{border-color:var(--gold);transform:translateX(5px);color:var(--gol
       <div class="ptitle">
         <span class="eq"><i></i><i></i><i></i><i></i></span> AHORA EN PANTALLA
         <span class="phspace"></span>
-        <button class="pbtn" id="btnProfileTop" title="Perfil y contacto del autor del video">👤</button>
         <button class="pbtn" id="btnReload" title="Recargar el video actual">🔄</button>
         <button class="pbtn" id="btnHost" title="Cambiar dominio del reproductor (youtube.com ↔ youtube-nocookie)">🔁</button>
         <button class="pbtn" id="btnExpand" title="Modo teatro (pantalla amplia)">⛶ TEATRO</button>
@@ -445,8 +481,10 @@ a.citem:hover{border-color:var(--gold);transform:translateX(5px);color:var(--gol
         <h3 id="pTitle"></h3>
         <div class="pc"><span class="ava" id="pAva">?</span><span id="pChan"></span></div>
         <div class="pstats" id="pStats"></div>
-        <div class="pact">
-          <button class="btn btn-ai" id="btnProfile">👤 AUTOR</button>
+        <div class="pgrid">
+          <button class="btn btn-ai" id="btnProfile">👤 PERFIL DEL AUTOR</button>
+          <button class="btn btn-ai" id="btnSheet">📋 FICHA DEL VIDEO</button>
+          <button class="btn btn-ai" id="btnCopyLink">⧉ COPIAR ENLACE</button>
           <button class="btn btn-primary" id="btnDownload">⬇ DESCARGAR</button>
         </div>
         <div class="phelp">Atajos: <kbd>ESPACIO</kbd> play/pausa · <kbd>←</kbd><kbd>→</kbd> ±10 s · <kbd>F</kbd> pantalla completa · <kbd>M</kbd> silencio · <kbd>ESC</kbd> salir. Si un video no carga: 🔄 recargar, 🔁 cambiar dominio, o el enlace de abajo.</div>
@@ -477,7 +515,7 @@ a.citem:hover{border-color:var(--gold);transform:translateX(5px);color:var(--gol
       <input id="keyInput" type="text" placeholder="Pega aquí tu clave de API (AIza...)">
       <button class="btn btn-primary" id="btnSaveKey">Guardar</button>
     </div>
-    <p class="mnote">⚠ Cada búsqueda consume ~100 unidades + 1 por lote de estadísticas + 1 por perfil de autor.<br>🔒 Tu clave solo se guarda en tu navegador (localStorage) y se envía directamente a Google.<br>💡 La IA y el reproductor funcionan sin clave, son 100% libres.</p>
+    <p class="mnote">⚠ Cada búsqueda consume ~100 unidades + 1 por lote de datos (el filtro de fecha, TENDENCIAS y la FICHA no cuestan extra).<br>🔒 Tu clave solo se guarda en tu navegador (localStorage) y se envía directamente a Google.<br>💡 La IA y el reproductor funcionan sin clave, son 100% libres.</p>
     <button class="btn hbtn mclose" id="btnCloseKey">Cerrar</button>
   </div>
 </div>
@@ -486,7 +524,8 @@ a.citem:hover{border-color:var(--gold);transform:translateX(5px);color:var(--gol
   <div class="theater">
     <div class="tbar">
       <span id="tTitle">REPRODUCIENDO</span>
-      <button class="pbtn" id="btnProfileT" title="Perfil y contacto del autor">👤 AUTOR</button>
+      <button class="pbtn" id="btnProfileT" title="Perfil del autor">👤 AUTOR</button>
+      <button class="pbtn" id="btnSheetT" title="Ficha completa del video">📋 FICHA</button>
       <button class="pbtn" id="btnTheaterClose">✕ CERRAR (ESC)</button>
     </div>
     <div class="tframe" id="tframe"></div>
@@ -495,6 +534,10 @@ a.citem:hover{border-color:var(--gold);transform:translateX(5px);color:var(--gol
 
 <div class="overlay" id="ovProfile">
   <div class="modal profcard" id="profCard"></div>
+</div>
+
+<div class="overlay" id="ovSheet">
+  <div class="modal sheetcard" id="sheetCard"></div>
 </div>
 
 <div class="overlay" id="ovDownload">
@@ -507,11 +550,14 @@ a.citem:hover{border-color:var(--gold);transform:translateX(5px);color:var(--gol
 /* ================= ESTADO ================= */
 const $ = s => document.querySelector(s);
 const HOSTS = ['https://www.youtube.com','https://www.youtube-nocookie.com'];
+const DATES = {'24h':1,'7d':7,'30d':30,'90d':90,'1y':365};
+const DATES_TXT = {'24h':'últimas 24 horas','7d':'últimos 7 días','30d':'último mes','90d':'últimos 90 días','1y':'último año'};
 const state = {
   key: localStorage.getItem('iyp_key') || '',
   host: localStorage.getItem('iyp_host') || HOSTS[0],
   vol: +(localStorage.getItem('iyp_vol') ?? 80),
   query:'', order:'relevance', max:25, pageToken:null,
+  trend:false, date:'any', days:0,
   results:[], view:'autores', playingId:null, theaterOpen:false, loading:false,
   channelCache:{}
 };
@@ -526,6 +572,10 @@ function toast(msg,type=''){ const t=$('#toast'); t.textContent=msg; t.className
 function hue(str){ let h=0; for(const c of str) h=(h*31+c.charCodeAt(0))%360; return `hsl(${h},70%,62%)`; }
 function fmtTime(s){ s=Math.max(0,Math.floor(s||0)); const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60; return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(x).padStart(2,'0'); }
 function flag(cc){ if(!cc||cc.length!==2)return ''; return String.fromCodePoint(...[...cc.toUpperCase()].map(c=>127397+c.charCodeAt(0)))+' '+cc; }
+async function copyText(t){
+  try{ await navigator.clipboard.writeText(t); return true; }
+  catch{ const ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select(); const ok=document.execCommand('copy'); ta.remove(); return ok; }
+}
 
 function relTime(iso){
   const d=(Date.now()-new Date(iso).getTime())/1000;
@@ -552,6 +602,31 @@ function scoreMeta(sc){
   return ['NICHO','l-nicho'];
 }
 function licenseLabel(v){ return v.license==='creativeCommons'?'Creative Commons':'Estandar'; }
+
+/* ================= MODO TENDENCIAS + FECHA ================= */
+$('#mNormal').onclick=()=>setMode(false);
+$('#mTrend').onclick=()=>setMode(true);
+function setMode(t){
+  state.trend=t;
+  $('#mNormal').classList.toggle('act',!t); $('#mTrend').classList.toggle('act',t);
+  $('#fOrder').disabled=t;
+  if(t){
+    $('#fOrder').value='viewCount';
+    if($('#fDate').value==='any') $('#fDate').value='30d';
+  }
+  $('#btnSearch').innerHTML=t?'🔥 Buscar tendencias':'▶ Buscar videos';
+}
+function computeTrends(){
+  const now=Date.now();
+  state.results.forEach(v=>{
+    const days=Math.max(1,(now-new Date(v.publishedAt).getTime())/864e5);
+    v.ageDays=days; v.speed=(v.views||0)/days;
+  });
+  if(state.results.length<2) return;
+  const speeds=state.results.map(v=>v.speed).sort((a,b)=>a-b);
+  const p80=speeds[Math.min(speeds.length-1,Math.floor(speeds.length*0.8))]||0;
+  state.results.forEach(v=>{ v.rising=(v.speed>=p80 && v.ageDays<=180 && v.speed>0); });
+}
 
 /* ================= REPRODUCTOR ================= */
 window.onYouTubeIframeAPIReady = function(){
@@ -666,7 +741,7 @@ function play(v){
   const a=$('#pAva'); a.textContent=v.channel[0]||'?'; a.style.background=hue(v.channel);
   $('#pOpen').href='https://www.youtube.com/watch?v='+v.id;
   const [lbl,cls]=scoreMeta(v.sc);
-  $('#pStats').innerHTML=`<span class="pchip">👁 <b>${fmtN(v.views)}</b></span><span class="pchip">👍 <b>${v.likes!=null?fmtN(v.likes):'—'}</b></span><span class="pchip">⏱ <b>${esc(v.duration||'—')}</b></span><span class="pchip ${cls}" style="border-radius:6px">ACEPTACIÓN <b>${v.sc}/100</b> · ${lbl}</span>${v.license==='creativeCommons'?'<span class="pchip" style="color:var(--green)">✅ CC-BY</span>':''}`;
+  $('#pStats').innerHTML=`<span class="pchip">👁 <b>${fmtN(v.views)}</b></span><span class="pchip">👍 <b>${v.likes!=null?fmtN(v.likes):'—'}</b></span><span class="pchip">⏱ <b>${esc(v.duration||'—')}</b></span><span class="pchip">🚀 <b>${fmtN(Math.round(v.speed||0))}/día</b></span><span class="pchip ${cls}" style="border-radius:6px">ACEPTACIÓN <b>${v.sc}/100</b> · ${lbl}</span>${v.rising?'<span class="pchip" style="color:var(--green)">🚀 EN ASCENSO</span>':''}${v.license==='creativeCommons'?'<span class="pchip" style="color:var(--green)">✅ CC-BY</span>':''}`;
   document.querySelectorAll('.vrow').forEach(r=>r.classList.toggle('playing',r.dataset.id===v.id));
 
   if(apiReady){
@@ -721,6 +796,7 @@ document.addEventListener('keydown',e=>{
     closeTheater();
     $('#ovKey').classList.remove('show');
     $('#ovProfile').classList.remove('show');
+    $('#ovSheet').classList.remove('show');
     $('#ovDownload').classList.remove('show');
     return;
   }
@@ -734,6 +810,57 @@ document.addEventListener('keydown',e=>{
 
 if(location.protocol==='file:') $('#fileWarn').style.display='block';
 $('#fwClose').onclick=()=>$('#fileWarn').style.display='none';
+
+/* ================= COPIAR ENLACE DEL VIDEO ACTUAL ================= */
+$('#btnCopyLink').onclick=async()=>{
+  const v=state.results.find(x=>x.id===state.playingId);
+  if(!v){ toast('Selecciona primero un video ▶','warn'); return; }
+  const u='https://www.youtube.com/watch?v='+v.id;
+  (await copyText(u))?toast('⧉ Enlace copiado al portapapeles','ok'):toast('No se pudo copiar','warn');
+};
+
+/* ================= FICHA COMPLETA DEL VIDEO ================= */
+function openSheet(){
+  const v=state.results.find(x=>x.id===state.playingId);
+  if(!v){ toast('Selecciona primero un video ▶','warn'); return; }
+  const tags=v.vtags||[];
+  const [lbl]=scoreMeta(v.sc);
+  $('#ovSheet').classList.add('show');
+  $('#sheetCard').innerHTML=`
+    <h2>📋 Ficha completa del video</h2>
+    <div class="shead">
+      ${v.thumb?`<img src="${esc(v.thumb)}" alt="">`:''}
+      <div><h3>${esc(v.title)}</h3><div class="sc">${esc(v.channel)} · publicado ${relTime(v.publishedAt)}</div></div>
+    </div>
+    <div class="sstats">
+      <span class="pchip">📅 <b>${new Date(v.publishedAt).toLocaleDateString('es',{day:'numeric',month:'long',year:'numeric'})}</b></span>
+      <span class="pchip">⏱ <b>${esc(v.duration||'—')}</b></span>
+      <span class="pchip">👁 <b>${fmtN(v.views)}</b></span>
+      <span class="pchip">👍 <b>${v.likes!=null?fmtN(v.likes):'—'}</b></span>
+      <span class="pchip">🚀 <b>${fmtN(Math.round(v.speed||0))}/día</b></span>
+      <span class="pchip">ACEPTACIÓN <b>${v.sc}/100</b> · ${lbl.replace('🔥 ','')}</span>
+      ${v.rising?'<span class="pchip" style="color:var(--green)">🚀 EN ASCENSO</span>':''}
+      <span class="pchip">LICENCIA <b>${licenseLabel(v)}</b></span>
+    </div>
+    <div class="ssect">📝 DESCRIPCIÓN COMPLETA <button class="xbtn" id="shCopyDesc">⧉ COPIAR</button></div>
+    <div class="sdesc">${(v.desc||'').trim()?esc(v.desc):'Este video no tiene descripción.'}</div>
+    <div class="ssect">🏷 ETIQUETAS DEL VIDEO (${tags.length}) <button class="xbtn" id="shCopyTags">⧉ COPIAR</button></div>
+    ${tags.length?`<div class="schips">${tags.map(t=>`<span class="schip">${esc(t)}</span>`).join('')}</div>`:'<div class="nocontact">El video no tiene etiquetas públicas.</div>'}
+    <div class="ssect">🔗 ENLACES</div>
+    <div class="srow">https://www.youtube.com/watch?v=${v.id}<button class="xbtn" id="shCopyUrl">⧉</button></div>
+    <div class="srow">https://youtu.be/${v.id}<button class="xbtn" id="shCopyShort">⧉</button></div>
+    <div class="srow">https://www.youtube.com/channel/${v.channelId}<button class="xbtn" id="shCopyCh">⧉</button></div>
+    <p class="pdiscl">ℹ️ Datos oficiales de YouTube Data API (sin coste extra). La descripción y las etiquetas son del propio video: úsalas como referencia para tu investigación.</p>`;
+  const cp=async(t,m)=>toast((await copyText(t))?m:'No se pudo copiar','ok');
+  $('#shCopyDesc').onclick=()=>cp(v.desc||'','⧉ Descripción copiada');
+  $('#shCopyTags').onclick=()=>cp(tags.join(', '),'⧉ Etiquetas copiadas');
+  $('#shCopyUrl').onclick=()=>cp('https://www.youtube.com/watch?v='+v.id,'⧉ Enlace copiado');
+  $('#shCopyShort').onclick=()=>cp('https://youtu.be/'+v.id,'⧉ Enlace corto copiado');
+  $('#shCopyCh').onclick=()=>cp('https://www.youtube.com/channel/'+v.channelId,'⧉ Enlace del canal copiado');
+}
+$('#btnSheet').onclick=openSheet;
+$('#btnSheetT').onclick=openSheet;
+$('#ovSheet').addEventListener('click',e=>{ if(e.target.id==='ovSheet') e.target.classList.remove('show'); });
 
 /* ================= DESCARGA (licencias + yt-dlp) ================= */
 function dlArgs(mode,q){
@@ -813,7 +940,7 @@ function renderDownload(v){
   const lic = cc
     ? `<div class="licbox lic-ok"><b>✅ LICENCIA CREATIVE COMMONS (CC-BY) — DESCARGA PERMITIDA</b>El autor permite reutilizar este video citando la fuente. Puedes descargarlo y usarlo en tus proyectos con atribución a <u>${esc(v.channel)}</u>.</div>`
     : v.license
-    ? `<div class="licbox lic-warn"><b>🔐 LICENCIA ESTÁNDAR DE YOUTUBE — DERECHOS RESERVADOS</b>Los derechos pertenecen a <u>${esc(v.channel)}</u> y YouTube bloquea la descarga directa desde el navegador. El descargador generado es para <b>uso personal</b> si la ley de tu país lo permite. Para reutilizar o publicar el contenido necesitas permiso del autor (usa 👤 AUTOR para buscar su contacto).</div>`
+    ? `<div class="licbox lic-warn"><b>🔐 LICENCIA ESTÁNDAR DE YOUTUBE — DERECHOS RESERVADOS</b>Los derechos pertenecen a <u>${esc(v.channel)}</u> y YouTube bloquea la descarga directa desde el navegador. El descargador generado es para <b>uso personal</b> si la ley de tu país lo permite. Para reutilizar o publicar el contenido necesitas permiso del autor (usa 👤 PERFIL DEL AUTOR para buscar su contacto).</div>`
     : `<div class="licbox lic-unk"><b>ℹ LICENCIA NO DISPONIBLE</b>No se pudo verificar la licencia de este video. Asume derechos reservados y úsalo solo para uso personal.</div>`;
   $('#dlCard').innerHTML=`
     <h2>⬇ Descargar video</h2>
@@ -852,10 +979,7 @@ function renderDownload(v){
   };
   $('#dlCmd').onclick=async()=>{
     const cmd=buildCmd(v,$('#dlMode').value,$('#dlQ').value);
-    let ok=false;
-    try{ await navigator.clipboard.writeText(cmd); ok=true; }
-    catch{ const ta=document.createElement('textarea'); ta.value=cmd; document.body.appendChild(ta); ta.select(); ok=document.execCommand('copy'); ta.remove(); }
-    toast(ok?'⧉ Comando yt-dlp copiado — pégalo en CMD':'No se pudo copiar', ok?'ok':'warn');
+    toast((await copyText(cmd))?'⧉ Comando yt-dlp copiado — pégalo en CMD':'No se pudo copiar', 'ok');
   };
 }
 $('#btnDownload').onclick=openDownload;
@@ -962,7 +1086,6 @@ async function openProfile(){
   }
 }
 $('#btnProfile').onclick=openProfile;
-$('#btnProfileTop').onclick=openProfile;
 $('#btnProfileT').onclick=openProfile;
 $('#ovProfile').addEventListener('click',e=>{ if(e.target.id==='ovProfile') e.target.classList.remove('show'); });
 
@@ -1020,37 +1143,52 @@ async function doSearch(pageToken=null){
   if(!state.key){ $('#ovKey').classList.add('show'); toast('Conecta tu clave gratuita de YouTube para buscar','warn'); return; }
   if(state.loading) return;
   state.loading=true; state.query=q;
-  state.order=$('#fOrder').value; state.max=+$('#fMax').value;
+  state.order = state.trend?'viewCount':$('#fOrder').value;
+  state.max=+$('#fMax').value;
+  state.date=$('#fDate').value;
+  state.days=DATES[state.date]||0;
   if(!pageToken){ state.results=[]; showSkeleton(); }
-  $('#btnSearch').disabled=true; $('#btnSearch').innerHTML='<span class="spin"></span> Rastreando…';
+  $('#btnSearch').disabled=true; $('#btnSearch').innerHTML='<span class="spin"></span> '+(state.trend?'Rastreando tendencias…':'Rastreando…');
   $('#aiCard').classList.remove('show');
   try{
-    const s=await ytFetch('search',{part:'snippet',type:'video',videoEmbeddable:'true',maxResults:state.max,q,order:state.order,...(pageToken?{pageToken}:{})});
+    const params={part:'snippet',type:'video',videoEmbeddable:'true',maxResults:state.max,q,order:state.order};
+    if(state.days) params.publishedAfter=new Date(Date.now()-state.days*864e5).toISOString();
+    const s=await ytFetch('search',{...params,...(pageToken?{pageToken}:{})});
     state.pageToken=s.nextPageToken||null;
     const items=(s.items||[]).map(it=>({
       id:it.id.videoId, title:it.snippet.title, channelId:it.snippet.channelId,
       channel:it.snippet.channelTitle, publishedAt:it.snippet.publishedAt,
       thumb:it.snippet.thumbnails?.medium?.url||it.snippet.thumbnails?.default?.url
     })).filter(v=>v.id);
-    if(!items.length&&!pageToken){ $('#listWrap').innerHTML=`<div class="empty"><div class="big">∅</div><p>Sin resultados para «${esc(q)}».<br>Prueba con otra redacción o pulsa <b>✦ Ampliar con IA</b>.</p></div>`; $('#rhead').style.display='none'; $('#statsbar').style.display='none'; return; }
+    if(!items.length&&!pageToken){ $('#listWrap').innerHTML=`<div class="empty"><div class="big">∅</div><p>Sin resultados para «${esc(q)}»${state.days?` en ${DATES_TXT[state.date]||''}`:''}.<br>Prueba con otra redacción, amplía la ventana de fecha, o pulsa <b>✦ Ampliar con IA</b>.</p></div>`; $('#rhead').style.display='none'; $('#statsbar').style.display='none'; $('#trendChip').style.display='none'; $('#dateChip').style.display='none'; return; }
     const ids=items.map(i=>i.id);
     for(let i=0;i<ids.length;i+=50){
-      const d=await ytFetch('videos',{part:'statistics,contentDetails,status',id:ids.slice(i,i+50).join(',')});
+      const d=await ytFetch('videos',{part:'snippet,statistics,contentDetails,status',id:ids.slice(i,i+50).join(',')});
       const map={}; (d.items||[]).forEach(v=>map[v.id]=v);
-      items.forEach(it=>{ const m=map[it.id]; if(m){ it.views=+m.statistics?.viewCount||0; const lk=m.statistics?.likeCount; it.likes=lk!=null?+lk:null; it.duration=fmtDur(m.contentDetails?.duration); it.license=m.status?.license||''; }});
+      items.forEach(it=>{ const m=map[it.id]; if(m){
+        it.views=+m.statistics?.viewCount||0;
+        const lk=m.statistics?.likeCount; it.likes=lk!=null?+lk:null;
+        it.duration=fmtDur(m.contentDetails?.duration);
+        it.license=m.status?.license||'';
+        it.desc=m.snippet?.description||'';
+        it.vtags=m.snippet?.tags||[];
+      }});
     }
     items.forEach(it=>{ it.sc=score(it); });
     state.results=state.results.concat(items);
+    computeTrends();
     pushRecent(q); renderAll();
   }catch(err){
     $('#listWrap').innerHTML=`<div class="errbar">⚠ <b>Problema:</b> ${esc(err.message)}</div>`;
   }finally{
-    state.loading=false; $('#btnSearch').disabled=false; $('#btnSearch').innerHTML='▶ Buscar videos';
+    state.loading=false; $('#btnSearch').disabled=false;
+    $('#btnSearch').innerHTML=state.trend?'🔥 Buscar tendencias':'▶ Buscar videos';
   }
 }
 
 function showSkeleton(){
   $('#statsbar').style.display='none'; $('#rhead').style.display='none'; $('#btnMore').style.display='none';
+  $('#trendChip').style.display='none'; $('#dateChip').style.display='none';
   $('#listWrap').innerHTML=Array.from({length:5},()=>`
     <div class="skel" style="margin-bottom:12px">
       <div class="b" style="width:172px;aspect-ratio:16/9;flex:none"></div>
@@ -1075,6 +1213,11 @@ function renderAll(){
   animateNum($('#sViews'),tot,true); animateNum($('#sAvg'),R.length?Math.round(tot/R.length):0,true);
   $('#rCount').textContent=R.length+' videos';
   $('#btnMore').style.display=state.pageToken?'block':'none';
+  if(state.trend){ $('#trendChip').style.display='flex'; $('#tcWin').textContent=state.days?('ventana: '+DATES_TXT[state.date]):'cualquier fecha'; }
+  else $('#trendChip').style.display='none';
+  if(state.days && !state.trend){ $('#dateChip').style.display='flex'; $('#dcTxt').textContent='solo videos publicados en '+DATES_TXT[state.date]+' · se muestran los más relevantes dentro de ese periodo'; }
+  else if(!state.trend) $('#dateChip').style.display='none';
+  else $('#dateChip').style.display='none';
   $('#listWrap').innerHTML = state.view==='autores'? renderGrouped() : renderRanked();
 }
 function rowHTML(v,i,showRank=true){
@@ -1090,13 +1233,14 @@ function rowHTML(v,i,showRank=true){
       <span class="chan">${esc(v.channel)}</span><span class="when">${relTime(v.publishedAt)}</span></div>
     </div>
     <div class="vmetrics">
-      <div class="mrow"><span>👁 <b>${fmtN(v.views)}</b></span><span>👍 <b>${v.likes!=null?fmtN(v.likes):'—'}</b></span></div>
+      ${v.rising?'<span class="mlabel l-rise">🚀 EN ASCENSO</span>':''}
+      <div class="mrow"><span>👁 <b>${fmtN(v.views)}</b></span><span>👍 <b>${v.likes!=null?fmtN(v.likes):'—'}</b></span><span>🚀 <b>${fmtN(Math.round(v.speed||0))}/d</b></span></div>
       <div class="meter"><div class="mbar"><i style="width:${v.sc}%"></i></div><span class="mscore">${v.sc}</span><span class="mlabel ${cls}">${lbl}</span></div>
     </div>
   </article>`;
 }
 function renderRanked(){
-  const sorted=[...state.results].sort((a,b)=>b.sc-a.sc||b.views-a.views);
+  const sorted=[...state.results].sort(state.trend?((a,b)=>b.speed-a.speed):((a,b)=>b.sc-a.sc||b.views-a.views));
   return `<div class="vlist">${sorted.map((v,i)=>rowHTML(v,i,true)).join('')}</div>`;
 }
 function renderGrouped(){
@@ -1136,10 +1280,10 @@ function slug(s){ return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036
 
 $('#btnCSV').onclick=()=>{
   if(!state.results.length){ toast('No hay resultados que exportar','warn'); return; }
-  const rows=[['#','Titulo','Canal','URL','Vistas','Me gusta','Duracion','Aceptacion (0-100)','Etiqueta','Licencia','Publicado']];
+  const rows=[['#','Titulo','Canal','URL','Vistas','Me gusta','Duracion','Vistas por dia','En ascenso','Aceptacion (0-100)','Etiqueta','Licencia','Publicado']];
   state.results.forEach((v,i)=>rows.push([
     i+1, v.title, v.channel, 'https://www.youtube.com/watch?v='+v.id, v.views||0, v.likes??'',
-    v.duration||'', v.sc, scoreMeta(v.sc)[0].replace('🔥 ',''), licenseLabel(v), (v.publishedAt||'').slice(0,10)
+    v.duration||'', Math.round(v.speed||0), v.rising?'SI':'', v.sc, scoreMeta(v.sc)[0].replace('🔥 ',''), licenseLabel(v), (v.publishedAt||'').slice(0,10)
   ]));
   const csv='\uFEFF'+rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(';')).join('\r\n');
   downloadBlob(csv,'text/csv',`IdeasYoutubePro_${slug(state.query)}.csv`);
@@ -1148,9 +1292,10 @@ $('#btnCSV').onclick=()=>{
 
 $('#btnTXT').onclick=()=>{
   if(!state.results.length){ toast('No hay resultados que exportar','warn'); return; }
-  let txt=`═══════════════════════════════════════════\n  IDEASYOUTUBEPRO — REFERENCIAS PARA GUION\n  Búsqueda: "${state.query}"\n  ${state.results.length} videos · Generado: ${new Date().toLocaleString('es')}\n═══════════════════════════════════════════\n\n`;
+  const filtro=(state.trend?' · MODO TENDENCIAS':'')+(state.days?` · ${DATES_TXT[state.date]}`:'');
+  let txt=`═══════════════════════════════════════════\n  IDEASYOUTUBEPRO — REFERENCIAS PARA GUION\n  Búsqueda: "${state.query}"${filtro}\n  ${state.results.length} videos · Generado: ${new Date().toLocaleString('es')}\n═══════════════════════════════════════════\n\n`;
   state.results.forEach((v,i)=>{
-    txt+=`${String(i+1).padStart(2,'0')}. ${v.title}\n    Canal: ${v.channel} · 👁 ${fmtN(v.views)} vistas · ⏱ ${v.duration||'—'} · Aceptación ${v.sc}/100 · Licencia: ${licenseLabel(v)}\n    https://youtu.be/${v.id}\n\n`;
+    txt+=`${String(i+1).padStart(2,'0')}. ${v.title}\n    Canal: ${v.channel} · 👁 ${fmtN(v.views)} vistas · ⏱ ${v.duration||'—'} · 🚀 ${fmtN(Math.round(v.speed||0))}/día${v.rising?' · EN ASCENSO':''} · Aceptación ${v.sc}/100 · Licencia: ${licenseLabel(v)}\n    https://youtu.be/${v.id}\n\n`;
   });
   downloadBlob(txt,'text/plain',`Guion_${slug(state.query)}.txt`);
   toast('⬇ Guion de URLs descargado','ok');
@@ -1159,10 +1304,7 @@ $('#btnTXT').onclick=()=>{
 $('#btnCopy').onclick=async()=>{
   if(!state.results.length){ toast('No hay URLs que copiar','warn'); return; }
   const t=state.results.map(v=>'https://www.youtube.com/watch?v='+v.id).join('\n');
-  let ok=false;
-  try{ await navigator.clipboard.writeText(t); ok=true; }
-  catch{ const ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select(); ok=document.execCommand('copy'); ta.remove(); }
-  toast(ok?`⧉ ${state.results.length} URLs copiadas al portapapeles`:'No se pudo copiar; usa ⬇ URLs GUION', ok?'ok':'warn');
+  toast((await copyText(t))?`⧉ ${state.results.length} URLs copiadas al portapapeles`:'No se pudo copiar; usa ⬇ URLs GUION', 'ok');
 };
 
 /* ================= IA GRATUITA ================= */
@@ -1192,9 +1334,9 @@ $('#btnAnalyze').onclick=async()=>{
   card.innerHTML=`<h4>✦ ANÁLISIS IA DEL TEMA</h4><p><span class="spin"></span> &nbsp;Analizando el panorama de «${esc(state.query)}»…</p>`;
   card.scrollIntoView({behavior:'smooth',block:'nearest'});
   const top=[...state.results].sort((a,b)=>b.views-a.views).slice(0,12)
-    .map(v=>`- "${v.title}" (${v.channel}, ${fmtN(v.views)} vistas)`).join('\n');
+    .map(v=>`- "${v.title}" (${v.channel}, ${fmtN(v.views)} vistas${v.rising?', EN ASCENSO':''})`).join('\n');
   try{
-    const out=await aiAsk(`Analista de contenido. Tema buscado: "${state.query}". Estos son los videos más vistos encontrados en YouTube:\n${top}\n\nResponde en español, breve:\n1) En 2 frases: qué tipo de contenido domina este tema.\n2) Una lista de 4 ideas de video originales relacionadas, de una línea cada una, con guiones.`,40000);
+    const out=await aiAsk(`Analista de contenido. Tema buscado: "${state.query}". Estos son los videos más vistos encontrados en YouTube:\n${top}\n\nResponde en español, breve:\n1) En 2 frases: qué tipo de contenido domina este tema.\n2) Una lista de 4 ideas de video originales relacionadas, de una línea cada una, con guiones.`);
     card.innerHTML=`<h4>✦ ANÁLISIS IA DEL TEMA — «${esc(state.query)}»</h4>`+
       out.split(/\n+/).filter(Boolean).map(l=>`<p>${esc(l)}</p>`).join('');
   }catch{ card.innerHTML=`<h4>✦ ANÁLISIS IA</h4><p>La IA no respondió esta vez (servicio gratuito saturado). Vuelve a intentarlo en unos segundos.</p>`; }
